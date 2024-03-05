@@ -1,5 +1,5 @@
 {
-  "name": "mono-repo-example",
+  "name": "franky-editor",
   "version": "0.0.1",
   "private": true,
   "description": "base prosemirror editor",

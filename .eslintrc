@@ -80,8 +80,6 @@
     "no-useless-computed-key": "error",
     "no-useless-constructor": "error",
     "no-useless-rename": "error",
-    // "no-unused-vars": "error", conflict with importing type alias
-    "no-unused-vars":"error",
     "no-var": "error",
     "no-void": "error",
     "no-with": "error",

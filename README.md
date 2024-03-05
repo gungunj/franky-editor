@@ -1,1 +1,1 @@
-### monorepo-example
+### franky-editor

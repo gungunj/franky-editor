@@ -3,5 +3,8 @@
   "include": ["src", "vite.config.ts"],
   "compilerOptions": { "outDir": "dist" },
   "references": [
+    { "path": "../packages/core" },
+    { "path": "../packages/reactEditor" },
+    { "path": "../packages/transformers" }
   ]
 }

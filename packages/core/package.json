@@ -1,0 +1,41 @@
+{
+  "name": "@franky-editor/core",
+  "version": "1.0.0",
+  "description": "base prosemirror editor",
+  "main": "dist/index.umd.js",
+  "scripts": {
+    "build:css": "pnpm postcss notailwind.css -o dist/style/notailwind.css",
+    "build:type": "tsc --emitDeclarationOnly",
+    "build:ts": "vite build",
+    "build": "pnpm build:ts && pnpm build:type && pnpm build:css",
+    "prepublish": "rm dist/tsconfig.tsbuildinfo"
+  },
+  "author": "",
+  "license": "MIT",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "dist",
+    "style"
+  ],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@types/prosemirror-model": "^1.17.0",
+    "eventemitter3": "^5.0.1",
+    "lodash.clonedeep": "^4.5.0",
+    "prosemirror-commands": "^1.5.2",
+    "prosemirror-history": "^1.3.2",
+    "prosemirror-keymap": "^1.2.2",
+    "prosemirror-model": "^1.19.4",
+    "prosemirror-schema-basic": "^1.2.2",
+    "prosemirror-schema-list": "^1.3.0",
+    "prosemirror-state": "^1.4.3",
+    "prosemirror-test-builder": "^1.1.1",
+    "prosemirror-transform": "^1.8.0",
+    "prosemirror-view": "^1.33.1"
+  }
+}

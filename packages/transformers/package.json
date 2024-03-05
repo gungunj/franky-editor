@@ -1,0 +1,20 @@
+{
+  "name": "@franky-editor/transformers",
+  "version": "1.0.0",
+  "description": "base prosemirror editor",
+  "main": "dist/index.umd.js",
+  "scripts": {
+    "build:css": "pnpm postcss notailwind.css -o dist/style/notailwind.css",
+    "build:type": "tsc --emitDeclarationOnly",
+    "build:ts": "vite build",
+    "build": "pnpm build:ts && pnpm build:type && pnpm build:css",
+    "prepublish": "rm dist/tsconfig.tsbuildinfo"
+  },
+  "author": "",
+  "license": "MIT",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "types": "dist/src/index.d.ts",
+  "files": ["dist", "style"],
+  "peerDependencies": { "react": ">=18", "react-dom": ">=18" }
+}
