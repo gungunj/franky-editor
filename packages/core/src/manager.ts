@@ -1,0 +1,5 @@
+class FrankyManager {
+  
+}
+
+export { FrankyManager };

@@ -1,9 +1,13 @@
 import { updateSchema } from './normalize';
-import { FrankySchema, SchemaMeta } from './schema';
+import { Formattable, FrankySchema, SchemaMeta } from './schema';
 import { FORMAT_TYPE, StringMap } from '../libs/types';
 import { parseDomStyleToAttrs, parseAttrsToDomStyle } from '../libs/parse';
-// eslint-disable-next-line import/named
-import { DOMOutputSpec, Node as ProseMirrorNode } from 'prosemirror-model';
+import {
+  // eslint-disable-next-line import/named
+  DOMOutputSpec,
+  Node as ProseMirrorNode,
+  // eslint-disable-next-line import/named
+} from 'prosemirror-model';
 
 interface IParagraphAttrs {
   align: string;
@@ -19,7 +23,38 @@ class Doc extends FrankySchema<never> {
   public content = 'block+';
 }
 
-class Paragraph extends FrankySchema<IParagraphAttrs> {
+const createWrapperDOM = (
+  tagName: string,
+  attrs: StringMap<any> = {},
+  hasContent = false,
+): DOMOutputSpec => {
+  const displayAttrs: StringMap<string> = {};
+  Object.keys(attrs).forEach((key) => {
+    const attr = attrs[key] as string;
+    if (attr) displayAttrs[key] = attr as string;
+  });
+
+  const pDOM: DOMOutputSpec = [tagName, displayAttrs];
+  // if (hasContent) pDOM[2] = 0;
+
+  return pDOM;
+};
+
+class Block<Structure> extends Formattable<Structure> {
+  public group = 'block';
+  public content = 'inline*';
+  public inline = false;
+  public defining = true;
+  public draggable = false;
+  public selectable = false;
+  public tagName(node: ProseMirrorNode) {
+    return 'div';
+  }
+  public toDOM = (node: ProseMirrorNode) =>
+    createWrapperDOM(this.tagName(node), node.attrs, Boolean(this.content));
+}
+
+class Paragraph extends Block<IParagraphAttrs> {
   public name = 'paragraph';
 
   // calc em/rem
@@ -81,15 +116,15 @@ class Text extends FrankySchema<never> {
   public group = 'inline';
 }
 
-// class Break extends Formattable<never> {
-//   public group = 'inline';
-//   public inline = true;
-//   public name = 'break';
-//   public selectable = false;
-//   public content = undefined;
-//   public parseDOM = [{ tag: 'br' }];
-//   public toDOM = () => ['br'] as DOMOutputSpecArray;
-// }
+class Break extends Formattable<never> {
+  public group = 'inline';
+  public inline = true;
+  public name = 'break';
+  public selectable = false;
+  public content = undefined;
+  public parseDOM = [{ tag: 'br' }];
+  public toDOM = () => ['br'] as DOMOutputSpec;
+}
 
 const basicSchema = updateSchema(
   {
@@ -100,8 +135,9 @@ const basicSchema = updateSchema(
     new SchemaMeta(FORMAT_TYPE.BLOCK, 'doc', new Doc()),
     new SchemaMeta(FORMAT_TYPE.BLOCK, 'paragraph', new Paragraph()),
     new SchemaMeta(FORMAT_TYPE.ATOM, 'text', new Text()),
-    // new SchemaMeta(FORMAT_TYPE.ATOM, 'break', new Break()),
+    new SchemaMeta(FORMAT_TYPE.ATOM, 'break', new Break()),
   ],
 );
+console.log(basicSchema);
 
 export { basicSchema };
