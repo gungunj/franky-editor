@@ -16,5 +16,9 @@
   "source": "src/index.ts",
   "types": "dist/src/index.d.ts",
   "files": ["dist", "style"],
-  "peerDependencies": { "react": ">=18", "react-dom": ">=18" }
+  "peerDependencies": { "react": ">=18", "react-dom": ">=18" },
+  "dependencies": {
+    "@franky-editor/core": "^1.0.0",
+    "ahooks": "^2.0.0"
+  }
 }

@@ -20,9 +20,9 @@ const initEditor = (mount: HTMLElement, options: IEdtorOptions) => {
   options.getEditor?.(editor);
   return editor;
 };
-const FrankyEditor = {
+const FrankyEditorService = {
   initEditor,
   updateEditorConfig,
 };
 
-export { FrankyEditor };
+export { FrankyEditorService };
